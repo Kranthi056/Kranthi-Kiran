@@ -1,0 +1,36 @@
+select EMP_ID,FIRST_NAME,LAST_NAME,GENDER,DEPT from emp_record_table;
+select FIRST_NAME,LAST_NAME,DEPT from emp_record_table;
+
+select EMP_ID,FIRST_NAME,LAST_NAME,GENDER,DEPT,EMP_RATING from emp_record_table
+where EMP_RATING<2 or EMP_RATING<4 or EMP_RATING<=4;
+
+select FIRST_NAME,LAST_NAME,concat(FIRST_NAME,LAST_NAME)  as alias from emp_record_table where DEPT="Finance";
+
+select EMP_ID,DEPT
+from emp_record_table
+where DEPT="Healthcare"
+union
+select EMP_ID,DEPT
+from emp_record_table
+where DEPT="Finance";
+
+SELECT ROLE,MIN(salary) AS min_salary,MAX(salary) AS max_salary
+FROM emp_record_table
+GROUP BY ROLE;
+
+select emp_id,rank() over(order by EXP) EXP from emp_record_table;
+
+select EMP_ID,COUNTRY,SALARY from emp_record_table where SALARY>6000;
+
+select EmP_ID,EXP from emp_record_table where EXP>10;
+
+select round(avg(salary)) as avg_sal, country, continent from emp_record_table group by country, CONTINENT;
+
+select emp_id, first_name, last_name, role, exp, salary, emp_rating, 0.05* salary* emp_rating
+as bonus from emp_record_table order by bonus;
+
+SELECT distinct role,
+     (SELECT MIN(salary) FROM emp_record_table WHERE role = role) AS min_salary,
+    (SELECT MAX(salary) FROM emp_record_table WHERE role = role) AS max_salary
+FROM 
+    emp_record_table;
